@@ -35,40 +35,56 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['photo'])) {
 
 ?>
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Upload File</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
-  <?php
-    if (isset($_SESSION['message'])) {
+  <body class="bg-gray-50 text-gray-800">
+
+    <?php
+      if (isset($_SESSION['message'])) {
     ?>
-        <div class="alert alert-primary alert-dismissible fade show" role="alert">
-            <strong>Message...</strong><?= $_SESSION['message'] ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="mx-auto mt-6 max-w-lg px-4">
+          <div class="bg-blue-100 border border-blue-300 text-blue-800 text-sm rounded p-4 relative" role="alert">
+            <strong class="font-semibold">Message:</strong> <?= $_SESSION['message'] ?>
+            <button type="button" class="absolute top-2 right-2 text-blue-600" onclick="this.parentElement.style.display='none'">&times;</button>
+          </div>
         </div>
     <?php
         unset($_SESSION['message']);
-    }
+      }
     ?>
 
-  <div class="container mt-5">
-        <form action="index.php" method="post" enctype="multipart/form-data">
-            
-            <h2 class="mb-4">Upload File</h2>
-            <div class="mb-3">
-                <label for="fileSelect" class="form-label">Filename:</label>
-                <input type="file" class="form-control" name="photo" id="fileSelect">
-            </div>
-            <button type="submit" class="btn btn-primary" name="submit">Upload</button>
-            
-            <p class="mt-3"><strong>Note:</strong> Only .jpg, .jpeg, .png formats allowed to a max size of 5MB.</p>
-        </form>
+    <div class="max-w-lg mx-auto mt-10 bg-white p-8 rounded-xl shadow-md">
+      <form action="index.php" method="post" enctype="multipart/form-data">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Upload File</h2>
+
+        <div class="mb-4">
+          <label for="fileSelect" class="block text-sm font-medium text-gray-700 mb-2">Select a file</label>
+          <input
+            type="file"
+            name="photo"
+            id="fileSelect"
+            class="block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+          />
+        </div>
+
+        <button
+          type="submit"
+          name="submit"
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition"
+        >
+          Upload
+        </button>
+
+        <p class="text-sm text-gray-500 mt-4">
+          <strong>Note:</strong> Only .jpg, .jpeg, .png formats allowed. Max size: 5MB.
+        </p>
+      </form>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>
